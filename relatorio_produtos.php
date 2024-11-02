@@ -1,38 +1,38 @@
 <?php
-$produtos=[
+$produtos = [
     [
-        'nome'=>'Leite',
-        'categoria'=>'laticinios',
-        'preco'=>'15.90',
-        'descricao'=>'leite longa vida integral semi-desnatado'
+        'nome' => 'Leite',
+        'categoria' => 'laticinios',
+        'preco' => '15.90',
+        'descricao' => 'leite longa vida integral semi-desnatado'
     ],
     [
-        'nome'=>'Macarrão',
-        'categoria'=>'massa',
-        'preco'=>'20.90',
-        'descricao'=>'macarrão dona benta integral'
+        'nome' => 'Macarrão',
+        'categoria' => 'massa',
+        'preco' => '20.90',
+        'descricao' => 'macarrão dona benta integral'
     ],
     [
-        'nome'=>'carne moida',
-        'categoria'=>'frios',
-        'preco'=>'30.70',
-        'descricao'=>'carne moida do patinho'
+        'nome' => 'carne moida',
+        'categoria' => 'frios',
+        'preco' => '30.70',
+        'descricao' => 'carne moida do patinho'
     ],
     [
-        'nome'=>'cebola',
-        'categoria'=>'legumes',
-        'preco'=>'5.90',
-        'descricao'=>'cebola pequena'
+        'nome' => 'cebola',
+        'categoria' => 'legumes',
+        'preco' => '5.90',
+        'descricao' => 'cebola pequena'
     ],
     [
-        'nome'=>'detergente',
-        'categoria'=>'limpeza',
-        'preco'=>'13.90',
-        'descricao'=>'detergente ipê'
+        'nome' => 'detergente',
+        'categoria' => 'limpeza',
+        'preco' => '13.90',
+        'descricao' => 'detergente ipê'
     ]
 ];
 
-require_once 'vendor/autoload.php';
+require_once '../vendor/autoload.php';
 $mpdf = new \Mpdf\Mpdf();
 
 
@@ -51,14 +51,17 @@ $html = '
     <tbody>';
 
 foreach ($produtos as $produto) {
-    echo $produto['nome']."<br/>";
-    echo $produto['categoria']."<br/>";
-    echo $produto['preco']."<br/>";
-    echo $produto['descricao']."<br/>";
-
+    $html .= '
+        <tr>
+            <td>' . $produto['nome'] . '</td>
+            <td>' . $produto['categoria'] . '</td>
+            <td>' . $produto['preco'] . '</td>
+            <td>' . $produto['descricao'] . '</td>
+        </tr>';
 }
+// Fecha a tabela e finaliza o HTML
+$html .= '</tbody></table>';
 
 
 $mpdf->WriteHTML($html);
 $mpdf->Output();
-
